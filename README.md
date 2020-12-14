@@ -18,4 +18,4 @@ User:(Auth)
 General :
 
 - [x] Adding swagger API documentation for endpoints
-- [ ] Publishing API on Heroku
+- [x] Publishing API on Heroku
