@@ -1,0 +1,776 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "1.0.0",
+        "title": "Bookshelf backend API docs",
+        "description": "bookshelf-backend-app api docs",
+        "license": {
+            "name": "MIT",
+            "url": "https://opensource.org/licenses/MIT"
+        }
+    },
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/register": {
+            "post": {
+                "tags": [
+                    "Register"
+                ],
+                "summary": "Yeni kullanıcı oluştur",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "User nesnesi",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/User"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Kullanıcı Başarıyla Oluşturuldu"
+                    },
+                    "400": {
+                        "description": "Hatalı İstek"
+                    }
+                }
+            }
+        },
+        "/login": {
+            "post": {
+                "tags": [
+                    "Login"
+                ],
+                "summary": "Kullanıcı Login olacak",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Login bilgileri",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/LoginRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/LoginResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/categories": {
+            "get": {
+                "tags": [
+                    "Kategorileri Listeler"
+                ],
+                "summary": "Kategorileri listeler",
+                "produces": [
+                    "application/json"
+                ],
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Category"
+                        }
+                    },
+                    "401": {
+                        "description": "İzinsiz giriş denemesi"
+                    },
+                    "403": {
+                        "description": "Token süresi dolmuş olabilir."
+                    },
+                    "500": {
+                        "description": "Server hatası"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Yeni kategori oluşturur"
+                ],
+                "summary": "Location için yeni kategoriler oluşturmaya olanak sağlar",
+                "produces": [
+                    "application/json"
+                ],
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Category"
+                        }
+                    },
+                    "401": {
+                        "description": "İzinsiz giriş denemesi"
+                    },
+                    "403": {
+                        "description": "Token süresi dolmuş olabilir."
+                    },
+                    "500": {
+                        "description": "Server hatası"
+                    }
+                }
+            }
+        },
+        "/categories/{categoryId}": {
+            "get": {
+                "tags": [
+                    "Verilen id'ye karşılık gelen kategoriyi getirir"
+                ],
+                "summary": "Verilen id'ye karşılık gelen kategoriyi getirir",
+                "produces": [
+                    "application/json"
+                ],
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "categoryId",
+                        "description": "getirilecek kategorinin id'si url'den geliecek(query parameter)",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Kategori getirildi"
+                    },
+                    "401": {
+                        "description": "İzinsiz giriş denemesi"
+                    },
+                    "403": {
+                        "description": "Token süresi dolmuş olabilir."
+                    },
+                    "500": {
+                        "description": "kategori getirilirken hata meydana geldi"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Kategori Silinir"
+                ],
+                "summary": "İlgili kategoriyi siler",
+                "produces": [
+                    "application/json"
+                ],
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "categoryId",
+                        "description": "Silinecek yorumun id'si url'den geliecek(query parameter)",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Kategori Silindi"
+                    },
+                    "401": {
+                        "description": "İzinsiz giriş denemesi"
+                    },
+                    "403": {
+                        "description": "Token süresi dolmuş olabilir."
+                    },
+                    "500": {
+                        "description": "Kategori silinirken hata meydana geldi"
+                    }
+                }
+            }
+        },
+        "/locations/{locationId}/comments": {
+            "post": {
+                "tags": [
+                    "Yorum Oluştur"
+                ],
+                "summary": "İlgili kitaba yorum oluşturulur",
+                "produces": [
+                    "application/json"
+                ],
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Login bilgileri",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/CommentRequest"
+                        }
+                    },
+                    {
+                        "in": "path",
+                        "name": "locationId",
+                        "description": "Yorum eklenecek olan location'ın id değeri",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Yorum Oluşturuldu"
+                    },
+                    "401": {
+                        "description": "İzinsiz giriş denemesi"
+                    },
+                    "403": {
+                        "description": "Token süresi dolmuş olabilir."
+                    },
+                    "500": {
+                        "description": "Yorum oluşturulurken hata meydana geldi"
+                    }
+                }
+            }
+        },
+        "/locations/{locationId}/comments/{commentId}": {
+            "delete": {
+                "tags": [
+                    "Yorum Silinir"
+                ],
+                "summary": "İlgili kitaptan yorum silinir",
+                "produces": [
+                    "application/json"
+                ],
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "locationId",
+                        "description": "Silinecek yorumun ait olduğu location'ın id değeri",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "path",
+                        "name": "commentId",
+                        "description": "Silinecek olan yorumun id değeri",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Yorum Silindi"
+                    },
+                    "401": {
+                        "description": "İzinsiz giriş denemesi"
+                    },
+                    "403": {
+                        "description": "Token süresi dolmuş olabilir."
+                    },
+                    "500": {
+                        "description": "Yorum silinirken hata meydana geldi"
+                    }
+                }
+            }
+        },
+        "/locations": {
+            "post": {
+                "tags": [
+                    "Yeni location oluşturur"
+                ],
+                "summary": "Yeni location oluşturmak için kullanılır.",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Location bilgileri",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/LocationRequest"
+                        }
+                    }
+                ],
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Yeni Location oluşturuldu"
+                    },
+                    "401": {
+                        "description": "İzinsiz giriş denemesi"
+                    },
+                    "403": {
+                        "description": "Token süresi dolmuş olabilir."
+                    },
+                    "500": {
+                        "description": "Location oluştururken hata meydana geldi"
+                    }
+                }
+            },
+            "get": {
+                "tags": [
+                    "Locationları listeler"
+                ],
+                "summary": "Locationları listeler",
+                "produces": [
+                    "application/json"
+                ],
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/LocationRequest"
+                        }
+                    },
+                    "401": {
+                        "description": "İzinsiz giriş denemesi"
+                    },
+                    "403": {
+                        "description": "Token süresi dolmuş olabilir."
+                    },
+                    "500": {
+                        "description": "Server hatası"
+                    }
+                }
+            }
+        },
+        "/locations/search": {
+            "get": {
+                "tags": [
+                    "Girilen değere göre arama sonuclarını döner"
+                ],
+                "summary": "Girilen değere göre arama sonuclarını döner",
+                "produces": [
+                    "application/json"
+                ],
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "name",
+                        "description": "location adı url'den geliecek(query parameter)",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "locationları listelenir"
+                    },
+                    "401": {
+                        "description": "İzinsiz giriş denemesi"
+                    },
+                    "403": {
+                        "description": "Token süresi dolmuş olabilir."
+                    },
+                    "500": {
+                        "description": "Locationlar listelenirken hata meydana geldi"
+                    }
+                }
+            }
+        },
+        "/locations/{locationId}": {
+            "get": {
+                "tags": [
+                    "Verilen id'ye karşılık gelen location'ı getirir"
+                ],
+                "summary": "Verilen id'ye karşılık gelen location'ı getirir",
+                "produces": [
+                    "application/json"
+                ],
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "locationId",
+                        "description": "getirilecek location'ın id'si url'den geliecek(query parameter)",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Location getirildi"
+                    },
+                    "401": {
+                        "description": "İzinsiz giriş denemesi"
+                    },
+                    "403": {
+                        "description": "Token süresi dolmuş olabilir."
+                    },
+                    "500": {
+                        "description": "Location getirilirken hata meydana geldi"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Location Düzenleme"
+                ],
+                "summary": "İlgili location düzenlenir",
+                "produces": [
+                    "application/json"
+                ],
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Location bilgileri",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/LocationRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Location Düzenlendi"
+                    },
+                    "401": {
+                        "description": "İzinsiz giriş denemesi"
+                    },
+                    "403": {
+                        "description": "Token süresi dolmuş olabilir."
+                    },
+                    "500": {
+                        "description": "Location düzenlenirken hata meydana geldi"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Location Silinir"
+                ],
+                "summary": "İlgili location silinir",
+                "produces": [
+                    "application/json"
+                ],
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "locationId",
+                        "description": "Silinecek location'ın  id değeri",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Location Silindi"
+                    },
+                    "401": {
+                        "description": "İzinsiz giriş denemesi"
+                    },
+                    "403": {
+                        "description": "Token süresi dolmuş olabilir."
+                    },
+                    "500": {
+                        "description": "Location silinirken hata meydana geldi"
+                    }
+                }
+            }
+        },
+        "/locations/{locationId}/photos": {
+            "get": {
+                "tags": [
+                    "İlgili location'a ait fotografları listeler"
+                ],
+                "summary": "İlgili location'a ait fotografları listeler",
+                "produces": [
+                    "application/json"
+                ],
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "locationId",
+                        "description": "getirilecek fotografların ait olduğu location'ın id değeri",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Location id'ye göre fotograflar listelenir"
+                    },
+                    "401": {
+                        "description": "İzinsiz giriş denemesi"
+                    },
+                    "403": {
+                        "description": "Token süresi dolmuş olabilir."
+                    },
+                    "500": {
+                        "description": "Location id'ye göre fotograflar listelenirken hata meydana geldi"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "İlgili location'a ait fotografları eklenir"
+                ],
+                "summary": "İlgili location'a ait fotograf eklenir",
+                "produces": [
+                    "application/json"
+                ],
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "locationId",
+                        "description": "getirilecek fotografların ait olduğu location'ın id değeri",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "file",
+                        "description": "yüklenecek resim dosyası",
+                        "required": true,
+                        "schema": {
+                            "format": "image"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Yeni Location oluşturuldu"
+                    },
+                    "401": {
+                        "description": "İzinsiz giriş denemesi"
+                    },
+                    "403": {
+                        "description": "Token süresi dolmuş olabilir."
+                    },
+                    "500": {
+                        "description": "Location oluştururken hata meydana geldi"
+                    }
+                }
+            }
+        },
+        "/requests": {
+            "post": {
+                "tags": [
+                    "Ekleme,Silme veya güncelleme isteği oluşturulur"
+                ],
+                "summary": "Ekleme,Silme veya güncelleme isteği oluşturulur",
+                "produces": [
+                    "application/json"
+                ],
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "type",
+                        "description": "İstek tipini belirten type ,request param olarak alınır",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "İstek Oluşturuldu"
+                    },
+                    "401": {
+                        "description": "İzinsiz giriş denemesi"
+                    },
+                    "403": {
+                        "description": "Token süresi dolmuş olabilir."
+                    },
+                    "500": {
+                        "description": "İstek oluşturulurken hata meydana geldi"
+                    }
+                }
+            }
+        }
+    },
+    "securityDefinitions": {
+        "JWT": {
+            "description": "auth headerda bearer token ile login",
+            "type": "apiKey",
+            "name": "Authorization",
+            "in": "header"
+        }
+    },
+    "definitions": {
+        "Category": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "categoryName": {
+                    "type": "string"
+                }
+            }
+        },
+        "User": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "username": {
+                    "type": "string"
+                },
+                "lastname": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "role": {
+                    "type": "string"
+                }
+            }
+        },
+        "LoginResponse": {
+            "type": "object",
+            "properties": {
+                "userId": {
+                    "type": "string"
+                },
+                "username": {
+                    "type": "string"
+                },
+                "role": {
+                    "type": "string"
+                },
+                "token": {
+                    "type": "string"
+                }
+            }
+        },
+        "LoginRequest": {
+            "type": "object",
+            "properties": {
+                "username": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                }
+            }
+        },
+        "CommentRequest": {
+            "type": "object",
+            "properties": {
+                "comment": {
+                    "type": "string"
+                },
+                "username": {
+                    "type": "string"
+                }
+            }
+        },
+        "LocationRequest": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "lat": {
+                    "type": "string"
+                },
+                "long": {
+                    "type": "string"
+                },
+                "country": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "comments": {
+                    "type": "array"
+                },
+                "category": {
+                    "type": "object",
+                    "$ref": "#/definitions/User"
+                },
+                "photos": {
+                    "type": "array"
+                }
+            }
+        }
+    }
+}
