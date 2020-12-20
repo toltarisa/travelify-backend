@@ -16,7 +16,7 @@
         "application/json"
     ],
     "paths": {
-        "/register": {
+        "/signup": {
             "post": {
                 "tags": [
                     "Register"
@@ -111,6 +111,18 @@
                 "summary": "Location için yeni kategoriler oluşturmaya olanak sağlar",
                 "produces": [
                     "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Category bilgileri",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/CategoryRequest"
+                        }
+                    }
                 ],
                 "security": [
                     {
@@ -535,6 +547,52 @@
                 }
             }
         },
+        "/locations/{locationId}/categories/{categoryId}": {
+            "post": {
+                "tags": [
+                    "Location'a kategori atar"
+                ],
+                "summary": "Location'ın kategrisi belirlenir",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "locationId",
+                        "description": "Kategorisi belirlenecek olan location'ın id değeri",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "path",
+                        "name": "categoryId",
+                        "description": "Location'ın ekleneceği kategorinin id değeri",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Location'ın kategorisi oluşturuldu"
+                    },
+                    "401": {
+                        "description": "İzinsiz giriş denemesi"
+                    },
+                    "403": {
+                        "description": "Token süresi dolmuş olabilir."
+                    },
+                    "500": {
+                        "description": "Location'a kategori eklenirken hata oluştu"
+                    }
+                }
+            }
+        },
         "/locations/{locationId}/photos": {
             "get": {
                 "tags": [
@@ -616,6 +674,52 @@
                     },
                     "500": {
                         "description": "Location oluştururken hata meydana geldi"
+                    }
+                }
+            }
+        },
+        "/locations/{locationId}/photos/{photoId}": {
+            "get": {
+                "tags": [
+                    "verilen location id ve photo id'ye uygun fotografı getirir."
+                ],
+                "summary": "verilen location id ve photo id'ye uygun fotografı getirir.",
+                "produces": [
+                    "application/json"
+                ],
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "locationId",
+                        "description": "getirilecek fotografın ait olduğu location'ın id değeri",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "path",
+                        "name": "photoId",
+                        "description": "getirilecek fotografın id değeri",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Location id'ye ve photo id'ye göre fotografı getirir."
+                    },
+                    "401": {
+                        "description": "İzinsiz giriş denemesi"
+                    },
+                    "403": {
+                        "description": "Token süresi dolmuş olabilir."
+                    },
+                    "500": {
+                        "description": "verilen id'ye sahip fotograf getirilirken bir hata olustu"
                     }
                 }
             }
@@ -759,16 +863,14 @@
                 },
                 "description": {
                     "type": "string"
-                },
-                "comments": {
-                    "type": "array"
-                },
-                "category": {
-                    "type": "object",
-                    "$ref": "#/definitions/User"
-                },
-                "photos": {
-                    "type": "array"
+                }
+            }
+        },
+        "CategoryRequest": {
+            "type": "object",
+            "properties": {
+                "categoryName": {
+                    "type": "string"
                 }
             }
         }
