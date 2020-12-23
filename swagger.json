@@ -203,7 +203,7 @@
                     {
                         "in": "path",
                         "name": "categoryId",
-                        "description": "Silinecek yorumun id'si url'den geliecek(query parameter)",
+                        "description": "Silinecek kategorinin id'si url'den geliecek(query parameter)",
                         "required": true,
                         "type": "string"
                     }
@@ -229,7 +229,7 @@
                 "tags": [
                     "Yorum Oluştur"
                 ],
-                "summary": "İlgili kitaba yorum oluşturulur",
+                "summary": "İlgili location'a yorum oluşturulur",
                 "produces": [
                     "application/json"
                 ],
@@ -242,7 +242,7 @@
                     {
                         "in": "body",
                         "name": "body",
-                        "description": "Login bilgileri",
+                        "description": "Comment bilgileri",
                         "required": true,
                         "schema": {
                             "type": "object",
@@ -278,7 +278,7 @@
                 "tags": [
                     "Yorum Silinir"
                 ],
-                "summary": "İlgili kitaptan yorum silinir",
+                "summary": "İlgili location'dan yorum silinir",
                 "produces": [
                     "application/json"
                 ],
@@ -410,7 +410,7 @@
                     {
                         "in": "path",
                         "name": "name",
-                        "description": "location adı url'den geliecek(query parameter)",
+                        "description": "location adı url'den gelecek(query parameter)",
                         "required": true,
                         "type": "string"
                     }
@@ -449,7 +449,7 @@
                     {
                         "in": "path",
                         "name": "locationId",
-                        "description": "getirilecek location'ın id'si url'den geliecek(query parameter)",
+                        "description": "getirilecek location'ın id'si url'den gelecek(query parameter)",
                         "required": true,
                         "type": "string"
                     }
@@ -552,7 +552,7 @@
                 "tags": [
                     "Location'a kategori atar"
                 ],
-                "summary": "Location'ın kategrisi belirlenir",
+                "summary": "Location'ın kategorisi belirlenir",
                 "produces": [
                     "application/json"
                 ],
@@ -827,7 +827,7 @@
         "LoginRequest": {
             "type": "object",
             "properties": {
-                "username": {
+                "email": {
                     "type": "string"
                 },
                 "password": {
