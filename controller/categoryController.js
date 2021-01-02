@@ -3,8 +3,9 @@ const Location = require('../model/Location');
 
 async function createCategory(req, res) {
   const category = new Category({
-    categoryName: req.body.name,
-    subCategoryId: req.body.subCategoryId,
+    categoryName: req.body.categoryName,
+    icon: req.body.icon,
+    color: req.body.color,
   });
 
   try {
