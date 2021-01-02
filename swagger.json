@@ -871,6 +871,12 @@
             "properties": {
                 "categoryName": {
                     "type": "string"
+                },
+                "icon": {
+                    "type": "string"
+                },
+                "color": {
+                    "type": "string"
                 }
             }
         }
