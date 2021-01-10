@@ -82,9 +82,11 @@ async function listLocationsByCategory(req, res) {
   }
 }
 
-module.exports.createCategory = createCategory;
-module.exports.listAllCategories = listAllCategories;
-module.exports.getCategoryById = getCategoryById;
-module.exports.deleteCategory = deleteCategory;
-module.exports.addCategoryToLocation = addCategoryToLocation;
-module.exports.listLocationsByCategory = listLocationsByCategory;
+exports.categoryController = {
+  createCategory,
+  listAllCategories,
+  getCategoryById,
+  deleteCategory,
+  addCategoryToLocation,
+  listLocationsByCategory,
+};

@@ -163,8 +163,10 @@ async function reset(req, res) {
   }
 }
 
-module.exports.login = login;
-module.exports.signup = signup;
-module.exports.logout = logout;
-module.exports.forgotPassword = forgotPassword;
-module.exports.reset = reset;
+exports.authController = {
+  login,
+  logout,
+  reset,
+  forgotPassword,
+  signup,
+};
