@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
-
+const crypto = require('crypto');
 const bcrypt = require('bcrypt');
 
 const userSchema = new mongoose.Schema({
@@ -35,6 +35,10 @@ const userSchema = new mongoose.Schema({
     default: 'user',
     enum: ['user', 'admin'],
   },
+  resetPasswordToken: {
+    type: String,
+    required: false,
+  },
 });
 
 userSchema.pre('save', async function (next) {
@@ -53,6 +57,10 @@ userSchema.statics.login = async function (email, password) {
     throw Error('incorrect password');
   }
   throw Error('incorrect email');
+};
+
+userSchema.methods.generatePassword = function () {
+  this.resetPasswordToken = crypto.randomBytes(20).toString('hex');
 };
 
 const User = mongoose.model('user', userSchema);

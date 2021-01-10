@@ -1,5 +1,14 @@
 const User = require('../model/User');
 const jwt = require('jsonwebtoken');
+const nodemailer = require('nodemailer');
+
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: process.env.NODEMAILER_TRANSPORTER_USER,
+    pass: process.env.NODEMAILER_TRANSPORTER_PASS,
+  },
+});
 
 function handleErrors(err) {
   let error = { name: '', lastname: '', email: '', password: '', username: '' };
@@ -50,7 +59,6 @@ async function signup(req, res) {
     res.status(201).json({ user: user._id });
   } catch (error) {
     const errors = handleErrors(error);
-
     res.status(400).json(errors);
   }
 }
@@ -83,6 +91,80 @@ function logout(req, res) {
   res.status(200).json({ message: 'successfully logged out!' });
 }
 
+function forgotPassword(req, res) {
+  const { email } = req.body;
+  User.findOne({ email }).then(function (user) {
+    if (!user)
+      return res.status(401).json({
+        message:
+          'The email address ' +
+          email +
+          ' is not associated with any account. Double-check your email address and try again.',
+      });
+    user.generatePassword();
+
+    user.save().then(function (user) {
+      let url = `${process.env.HOST}reset/${user.resetPasswordToken}`;
+      const mailOptions = {
+        from: process.env.FROM,
+        to: email,
+        subject: 'Travelify password reset',
+        text: `Hi ${user.username} \n 
+        Please click on the following link ${url} to reset your password. \n\n 
+        If you did not request this, please ignore this email and your password will remain unchanged.\n`,
+      };
+
+      transporter.sendMail(mailOptions, function (error, info) {
+        if (error) return res.status(500).json({ message: error.message });
+
+        res.status(200).json({
+          message: 'A reset email has been sent to ',
+          info: info,
+        });
+      });
+    });
+  });
+}
+
+async function reset(req, res) {
+  let token = req.params.token;
+  const { password } = req.body;
+  try {
+    const user = await User.findOne({ resetPasswordToken: token });
+    console.log(user);
+    if (!user)
+      return res
+        .status(401)
+        .json({ message: 'Password reset token is invalid or has expired.' });
+
+    user.password = password;
+    user.resetPasswordToken = undefined;
+
+    user.save().then(function (user) {
+      const mailOptions = {
+        to: user.email,
+        from: process.env.FROM_EMAIL,
+        subject: 'Your password has been changed',
+        text: `Hi ${user.username} \n 
+        This is a confirmation that the password for your account ${user.email} has just been changed.\n`,
+      };
+
+      transporter.sendMail(mailOptions, function (error, info) {
+        if (error) return res.status(500).json({ message: error.message });
+
+        res.status(200).json({
+          message: 'A reset email has been sent to ',
+          info: info,
+        });
+      });
+    });
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+}
+
 module.exports.login = login;
 module.exports.signup = signup;
 module.exports.logout = logout;
+module.exports.forgotPassword = forgotPassword;
+module.exports.reset = reset;

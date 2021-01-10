@@ -72,6 +72,63 @@
                 }
             }
         },
+        "/forgot-password": {
+            "post": {
+                "tags": [
+                    "Şifre Yenileme İsteği"
+                ],
+                "summary": "Şifre yenilemek isteyen kullanıcı email adresi ile bu endpointe istek atar",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Email adresi",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/ForgotPasswordRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "201 Created, email gönderildi."
+                    }
+                }
+            }
+        },
+        "/reset/{token}": {
+            "post": {
+                "tags": [
+                    "Şifre yenileme"
+                ],
+                "summary": "Şifre yenilemek isteyen kullanıcı email adresi ile bu endpointe istek atar",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Email adresi",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/PasswordRenewalRequest"
+                        }
+                    },
+                    {
+                        "in": "path",
+                        "name": "token",
+                        "description": "kullanıcıyı doğrulamak için gereken token değeri",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Şifre yenilendi, email ile kullanıcı bilgilendirildi"
+                    }
+                }
+            }
+        },
         "/categories": {
             "get": {
                 "tags": [
@@ -915,6 +972,22 @@
                     "type": "string"
                 },
                 "color": {
+                    "type": "string"
+                }
+            }
+        },
+        "ForgotPasswordRequest": {
+            "type": "object",
+            "properties": {
+                "email": {
+                    "type": "string"
+                }
+            }
+        },
+        "PasswordRenewalRequest": {
+            "type": "object",
+            "properties": {
+                "password": {
                     "type": "string"
                 }
             }
