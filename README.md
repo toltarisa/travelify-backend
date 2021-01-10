@@ -14,6 +14,9 @@ User:(Auth)
 - [x] added authorization helper for admin/user access
 - [x] create,update and delete requests for location implemented
 - [x] search mechanism for locations implemented
+- [x] photo upload using google cloud storage implemented
+- [x] password renewal using nodemailer implemented
+- [x] listing locations according to given category implemented
 
 General :
 
