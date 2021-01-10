@@ -25,7 +25,7 @@ const locationSchema = new mongoose.Schema({
     },
   ],
   category: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: mongoose.Schema.Types.Mixed,
     ref: 'Category',
   },
   photos: [

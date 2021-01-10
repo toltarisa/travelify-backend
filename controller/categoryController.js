@@ -25,9 +25,11 @@ async function addCategoryToLocation(req, res) {
   const categoryId = req.params.categoryId;
 
   try {
+    const category = await Category.findOne({ _id: categoryId });
+
     await Location.findByIdAndUpdate(
       locationId,
-      { category: categoryId },
+      { category: category },
       { new: true, useFindAndModify: false },
     );
     res.status(200).json({ message: 'Location category setted succesfully' });
