@@ -70,8 +70,21 @@ async function deleteCategory(req, res) {
   }
 }
 
+async function listLocationsByCategory(req, res) {
+  const categoryId = req.params.categoryId;
+
+  try {
+    const category = await Category.find({ _id: categoryId });
+    const locations = await Location.find({ category: category });
+    res.status(200).json(locations);
+  } catch (error) {
+    res.send({ message: error.message });
+  }
+}
+
 module.exports.createCategory = createCategory;
 module.exports.listAllCategories = listAllCategories;
 module.exports.getCategoryById = getCategoryById;
 module.exports.deleteCategory = deleteCategory;
 module.exports.addCategoryToLocation = addCategoryToLocation;
+module.exports.listLocationsByCategory = listLocationsByCategory;

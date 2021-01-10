@@ -27,7 +27,6 @@ async function listAllLocations(req, res) {
 
 async function searchLocationByQuery(req, res) {
   const name = req.query.name;
-  console.log(name);
   try {
     const locations = await Location.find({ name: { $regex: name } });
     res.status(200).json(locations);

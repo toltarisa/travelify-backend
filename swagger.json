@@ -224,6 +224,45 @@
                 }
             }
         },
+        "/categories/{categoryId}/locations": {
+            "get": {
+                "tags": [
+                    "Verilen kategori id'ye karşılık gelen lokasyonları getirir"
+                ],
+                "summary": "Verilen kategori id'ye karşılık gelen lokasyonları getirir",
+                "produces": [
+                    "application/json"
+                ],
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "categoryId",
+                        "description": "ilgili kategoriye ait id değeri",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Lokasyonlar getirildi"
+                    },
+                    "401": {
+                        "description": "İzinsiz giriş denemesi"
+                    },
+                    "403": {
+                        "description": "Token süresi dolmuş olabilir."
+                    },
+                    "500": {
+                        "description": "Lokasyonlar getirilirken hata meydana geldi"
+                    }
+                }
+            }
+        },
         "/locations/{locationId}/comments": {
             "post": {
                 "tags": [
