@@ -1,8 +1,8 @@
 const Router = require('express');
 
-const { commentController } = require('../controller/commentController');
+const { commentService } = require('../service/commentService');
 const requireAuth = require('../middleware/authMiddleware');
-const { addComment, removeComment } = commentController;
+const { addComment, removeComment } = commentService;
 
 const router = Router();
 

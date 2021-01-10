@@ -89,7 +89,7 @@ async function deleteLocation(req, res) {
   }
 }
 
-exports.locationController = {
+exports.locationService = {
   createLocation,
   listAllLocations,
   getLocationById,

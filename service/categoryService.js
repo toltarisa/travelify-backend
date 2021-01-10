@@ -82,7 +82,7 @@ async function listLocationsByCategory(req, res) {
   }
 }
 
-exports.categoryController = {
+exports.categoryService = {
   createCategory,
   listAllCategories,
   getCategoryById,

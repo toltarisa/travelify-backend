@@ -1,10 +1,10 @@
 const Router = require('express');
 
-const { locationController } = require('../controller/locationController');
+const { locationService } = require('../service/locationService');
 const requireAuth = require('../middleware/authMiddleware');
 const permit = require('../helpers/authorization');
-const { categoryController } = require('../controller/categoryController');
-const { addCategoryToLocation } = categoryController;
+const { categoryService } = require('../service/categoryService');
+const { addCategoryToLocation } = categoryService;
 
 const router = Router();
 
@@ -15,7 +15,7 @@ const {
   listAllLocations,
   searchLocationByQuery,
   updateLocation,
-} = locationController;
+} = locationService;
 
 router.post('/', [requireAuth, permit('admin')], createLocation);
 router.post(

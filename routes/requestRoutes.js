@@ -1,6 +1,6 @@
 const Router = require('express');
 
-const createRequest = require('../controller/requestController');
+const createRequest = require('../service/requestService');
 
 const router = Router();
 

@@ -56,4 +56,4 @@ async function getAllPhotosOfLocation(req, res) {
   }
 }
 
-exports.photo = { addPhoto, getPhotoById, getAllPhotosOfLocation };
+exports.photoService = { addPhoto, getPhotoById, getAllPhotosOfLocation };

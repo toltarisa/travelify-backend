@@ -163,7 +163,7 @@ async function reset(req, res) {
   }
 }
 
-exports.authController = {
+exports.authService = {
   login,
   logout,
   reset,

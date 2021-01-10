@@ -1,10 +1,10 @@
 const Router = require('express');
 
-const { photo } = require('../controller/photoController');
+const { photoService } = require('../service/photoService');
 const multer = require('../middleware/multerMiddleware');
 const router = Router();
 
-const { addPhoto, getPhotoById, getAllPhotosOfLocation } = photo;
+const { addPhoto, getPhotoById, getAllPhotosOfLocation } = photoService;
 
 router.post('/:locationId/photos', multer.single('file'), addPhoto);
 

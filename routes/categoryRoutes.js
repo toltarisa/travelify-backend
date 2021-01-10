@@ -1,7 +1,7 @@
 const Router = require('express');
 
 const requireAuth = require('../middleware/authMiddleware');
-const { categoryController } = require('../controller/categoryController');
+const { categoryService } = require('../service/categoryService');
 
 const {
   createCategory,
@@ -9,7 +9,7 @@ const {
   getCategoryById,
   listAllCategories,
   listLocationsByCategory,
-} = categoryController;
+} = categoryService;
 
 const router = Router();
 

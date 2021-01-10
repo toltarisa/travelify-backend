@@ -48,4 +48,4 @@ async function removeComment(req, res) {
   }
 }
 
-exports.commentController = { addComment, removeComment };
+exports.commentService = { addComment, removeComment };
