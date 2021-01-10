@@ -1,7 +1,6 @@
 Travelify Express Js Backend Application
-Tasks :
 
-User:(Auth)
+Tasks :
 
 - [x] Creating mongoose models and make relation between resources
 - [x] Creating routes for authentication routes
