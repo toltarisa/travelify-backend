@@ -97,7 +97,7 @@
                 }
             }
         },
-        "/reset/{token}": {
+        "/reset": {
             "post": {
                 "tags": [
                     "Şifre yenileme"
@@ -113,13 +113,6 @@
                             "type": "object",
                             "$ref": "#/definitions/PasswordRenewalRequest"
                         }
-                    },
-                    {
-                        "in": "path",
-                        "name": "token",
-                        "description": "kullanıcıyı doğrulamak için gereken token değeri",
-                        "required": true,
-                        "type": "string"
                     }
                 ],
                 "responses": {
@@ -988,6 +981,9 @@
             "type": "object",
             "properties": {
                 "password": {
+                    "type": "string"
+                },
+                "token": {
                     "type": "string"
                 }
             }

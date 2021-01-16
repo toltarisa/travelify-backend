@@ -104,13 +104,13 @@ function forgotPassword(req, res) {
     user.generatePassword();
 
     user.save().then(function (user) {
-      let url = `${process.env.HOST}reset/${user.resetPasswordToken}`;
+      let token = `${user.resetPasswordToken}`;
       const mailOptions = {
         from: process.env.FROM,
         to: email,
         subject: 'Travelify password reset',
         text: `Hi ${user.username} \n 
-        Please click on the following link ${url} to reset your password. \n\n 
+        Please enter this token :  ${token} to confirmation box to reset your password. \n\n 
         If you did not request this, please ignore this email and your password will remain unchanged.\n`,
       };
 
@@ -127,11 +127,11 @@ function forgotPassword(req, res) {
 }
 
 async function reset(req, res) {
-  let token = req.params.token;
-  const { password } = req.body;
+  const { password, token } = req.body;
+
   try {
     const user = await User.findOne({ resetPasswordToken: token });
-    console.log(user);
+
     if (!user)
       return res
         .status(401)
