@@ -12,7 +12,7 @@ var usersRouter = require('./routes/users');
 const category = require('./routes/categoryRoutes');
 const location = require('./routes/locationRoutes');
 const photo = require('./routes/photoRoutes');
-const comment = require('./routes');
+const comment = require('./routes/commentRoutes');
 const auth = require('./routes/authRoutes');
 const request = require('./routes/requestRoutes');
 
