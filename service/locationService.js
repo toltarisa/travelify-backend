@@ -4,10 +4,17 @@ async function createLocation(req, res) {
   const { name, lat, long, country, description } = req.body;
 
   try {
-    await Location.create({ name, lat, long, country, description });
+    const location = await Location.create({
+      name,
+      lat,
+      long,
+      country,
+      description,
+    });
 
     res.status(201).json({
       message: `location is created successfully`,
+      _id: location._id,
     });
   } catch (error) {
     res
