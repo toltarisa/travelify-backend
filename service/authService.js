@@ -94,6 +94,7 @@ function logout(req, res) {
 
 function forgotPassword(req, res) {
   const { email } = req.body;
+
   User.findOne({ email }).then(function (user) {
     if (!user)
       return res.status(401).json({
@@ -107,7 +108,7 @@ function forgotPassword(req, res) {
     user.save().then(function (user) {
       let token = `${user.resetPasswordToken}`;
       const mailOptions = {
-        from: process.env.FROM,
+        from: 'travelify@support.com',
         to: email,
         subject: 'Travelify password reset',
         text: `Hi ${user.username} \n 
@@ -144,7 +145,7 @@ async function reset(req, res) {
     user.save().then(function (user) {
       const mailOptions = {
         to: user.email,
-        from: process.env.FROM_EMAIL,
+        from: 'travelify@support.com',
         subject: 'Your password has been changed',
         text: `Hi ${user.username} \n 
         This is a confirmation that the password for your account ${user.email} has just been changed.\n`,
