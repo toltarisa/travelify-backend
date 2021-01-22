@@ -66,7 +66,7 @@ web_modules/
 *.tgz
 
 # gcs key
-keys.json
+./keys.json
 
 # Yarn Integrity file
 .yarn-integrity
