@@ -111,7 +111,7 @@ function forgotPassword(req, res) {
     user.save().then(function (user) {
       let token = `${user.resetPasswordToken}`;
       const mailOptions = {
-        from: 'travelify@support.com',
+        from: process.env.FROM,
         to: email,
         subject: 'Travelify password reset',
         text: `Hi ${user.username} \n 
@@ -148,7 +148,7 @@ async function reset(req, res) {
     user.save().then(function (user) {
       const mailOptions = {
         to: user.email,
-        from: 'travelify@support.com',
+        from: process.env.FROM,
         subject: 'Your password has been changed',
         text: `Hi ${user.username} \n 
         This is a confirmation that the password for your account ${user.email} has just been changed.\n`,
