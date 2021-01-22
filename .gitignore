@@ -65,6 +65,9 @@ web_modules/
 # Output of 'npm pack'
 *.tgz
 
+# gcs key
+keys.json
+
 # Yarn Integrity file
 .yarn-integrity
 
