@@ -4,9 +4,18 @@ Travelify Express Js Backend Application
 
 ### 📖 About This Project
 
-This is backend side of Travelify mobile app.
+This is backend side of [Travelify](https://github.com/Alertis/Travelify) mobile app.
 
-### :hammer: Tasks :
+### 🔨 Tech Stack :
+  - Node.js 
+  - Mongo DB
+  - Google Cloud Storage
+  - Json Web Tokens (Security)
+  - Nodemailer (For mailing operations)
+  - Swagger for API Docs
+  - Heroku for Deploying Application
+
+### :scroll: Tasks :
 
 - [x] Creating mongoose models and make relation between resources
 - [x] Creating routes for authentication routes
