@@ -1,5 +1,11 @@
 Travelify Express Js Backend Application
 
+<img src="https://miro.medium.com/max/720/1*ay9nx1XdZ3AOzx5Ev8xJEg.png" alt="Main Information" width="800" height="300">
+
+### 📖 About This Project
+
+This is backend side of Travelify mobile app.
+
 Tasks :
 
 - [x] Creating mongoose models and make relation between resources
