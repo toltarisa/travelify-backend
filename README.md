@@ -6,7 +6,7 @@ Travelify Express Js Backend Application
 
 This is backend side of Travelify mobile app.
 
-Tasks :
+### :hammer: Tasks :
 
 - [x] Creating mongoose models and make relation between resources
 - [x] Creating routes for authentication routes
